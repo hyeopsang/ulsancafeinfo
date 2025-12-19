@@ -1,41 +1,24 @@
-name: "Chromatic 배포"
+name: 'Chromatic'
 
-on:
-  push:
-    branches:
-      - main
-      - develop
-  pull_request:
+on: push
 
 jobs:
   chromatic:
-    name: Chromatic 실행
+    name: Run Chromatic
     runs-on: ubuntu-latest
     steps:
-      - name: 코드 체크아웃
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: pnpm 설정
-        uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          version: 9
-
-      - name: Node.js 설정
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'pnpm'
-
-      - name: 의존성 설치
-        run: pnpm install --frozen-lockfile
-
-      - name: Chromatic 배포
+          node-version: 22.20.0
+      - name: Install dependencies
+        # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+        run: npm ci
+      - name: Run Chromatic
         uses: chromaui/action@latest
         with:
+          # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          onlyChanged: true
-          autoAcceptChanges: main
-          exitZeroOnChanges: true
-          exitOnceUploaded: true
