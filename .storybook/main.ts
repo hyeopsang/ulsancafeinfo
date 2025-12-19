@@ -13,7 +13,8 @@ const config: StorybookConfig = {
   framework: '@storybook/react-vite',
 
   viteFinal: async (config) => {
-    // React plugin의 babel 설정을 초기화
+    config.plugins = config.plugins?.filter((plugin: any) => plugin?.name !== 'vite-plugin-svgr');
+
     config.plugins = config.plugins?.map((plugin: any) => {
       if (plugin?.name === 'vite:react-babel') {
         return {
