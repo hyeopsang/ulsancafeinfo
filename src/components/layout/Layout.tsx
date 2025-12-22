@@ -1,11 +1,14 @@
+import { Outlet } from 'react-router';
 import BottomNavigator from './BottomNavigator/BottomNavigator';
 import Header from './Header/Header';
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default function AppLayout() {
   return (
     <div>
       <Header />
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
       <BottomNavigator />
     </div>
   );
