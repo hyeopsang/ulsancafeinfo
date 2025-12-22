@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { StorybookConfig } from '@storybook/react-vite';
+import svgr from 'vite-plugin-svgr';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -13,8 +14,34 @@ const config: StorybookConfig = {
   framework: '@storybook/react-vite',
 
   viteFinal: async (config) => {
-    config.plugins = config.plugins?.filter((plugin: any) => plugin?.name !== 'vite-plugin-svgr');
+    // SVGR 플러그인 추가
+    config.plugins = config.plugins || [];
+    config.plugins.push(
+      svgr({
+        include: '**/*.svg',
+        svgrOptions: {
+          icon: true,
+          dimensions: true,
+          typescript: true,
+          ref: true,
+          svgoConfig: {
+            plugins: [
+              {
+                name: 'preset-default',
+                params: {
+                  overrides: {
+                    removeViewBox: false,
+                  },
+                },
+              },
+            ],
+          },
+          jsxRuntime: 'automatic',
+        },
+      }),
+    );
 
+    // React Compiler 비활성화 (Storybook 호환성)
     config.plugins = config.plugins?.map((plugin: any) => {
       if (plugin?.name === 'vite:react-babel') {
         return {
