@@ -31,11 +31,8 @@ const config: StorybookConfig = {
     config.plugins.push(
       svgr({
         include: '**/*.svg',
-        icon: true,
-        dimensions: true,
-        titleProp: true,
         exportType: 'default',
-        jsxRuntime: 'automatic',
+        // 최소한의 옵션만 사용
         svgoConfig: {
           plugins: [
             {
