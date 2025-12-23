@@ -6,13 +6,6 @@ import BottomNavItem from './BottomNavItem';
 const meta: Meta<typeof BottomNavItem> = {
   title: 'Navigation/BottomNavItem',
   component: BottomNavItem,
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={['/']}>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
 };
 
 export default meta;
