@@ -2,7 +2,7 @@ import BottomNavItem from './BottomNavItem';
 
 import Home from '@/assets/home.svg?react';
 import Map from '@/assets/map.svg?react';
-import Event from '@/assets/events.svg?react';
+import Event from '@/assets/event.svg?react';
 import Profile from '@/assets/profile.svg?react';
 import type { ComponentType, SVGProps } from 'react';
 
@@ -15,7 +15,7 @@ interface BottomNavItemConfig {
 const BOTTOM_NAV_ITEMS: BottomNavItemConfig[] = [
   { path: '/', icon: Home, label: '홈' },
   { path: '/map', icon: Map, label: '지도' },
-  { path: '/events', icon: Event, label: '행사' },
+  { path: '/event', icon: Event, label: '행사' },
   { path: '/mypage', icon: Profile, label: '마이페이지' },
 ];
 
