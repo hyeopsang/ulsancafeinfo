@@ -30,10 +30,9 @@ const config: StorybookConfig = {
     config.plugins = config.plugins || [];
     config.plugins.push(
       svgr({
-        // @svgr/rollup은 svgrOptions 래퍼 없이 바로 옵션 전달
+        include: '**/*.svg',
         icon: true,
         dimensions: true,
-        ref: true,
         titleProp: true,
         exportType: 'default',
         jsxRuntime: 'automatic',
