@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
-import svgr from 'vite-plugin-svgr';
+import svgr from '@svgr/rollup';
 
 const dirname =
   typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
@@ -20,32 +20,9 @@ export default defineConfig({
     }),
     tailwindcss(),
     svgr({
-      // SVG를 React 컴포넌트로 import
-      include: '**/*.svg',
-      // SVGR 옵션
-      svgrOptions: {
-        // SVG를 아이콘처럼 사용 (width/height 제거, currentColor 적용)
-        icon: true,
-        dimensions: true,
-        // TypeScript 지원
-        typescript: true,
-        // SVG 속성을 props로 전달 가능
-        ref: true,
-        // SVG 최적화 (SVGO)
-        svgoConfig: {
-          plugins: [
-            {
-              name: 'preset-default',
-              params: {
-                overrides: {
-                  removeViewBox: false,
-                },
-              },
-            },
-          ],
-        },
-        jsxRuntime: 'automatic',
-      },
+      ref: true,
+      svgo: false,
+      typescript: true,
     }),
   ],
   test: {

@@ -2,7 +2,7 @@ import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import type { StorybookConfig } from '@storybook/react-vite';
 import type { PluginOption } from 'vite';
-import svgr from 'vite-plugin-svgr';
+import svgr from '@svgr/rollup';
 
 // ESM 환경에서 __dirname 대체
 const __filename = fileURLToPath(import.meta.url);
@@ -26,30 +26,28 @@ const config: StorybookConfig = {
       '@': resolve(__dirname, '../src'),
     };
 
-    // SVGR 플러그인 추가
+    // SVGR 플러그인 추가 (@svgr/rollup 사용)
     config.plugins = config.plugins || [];
     config.plugins.push(
       svgr({
-        include: '**/*.svg',
-        svgrOptions: {
-          icon: true,
-          dimensions: true,
-          typescript: false,
-          ref: true,
-          titleProp: true,
-          svgoConfig: {
-            plugins: [
-              {
-                name: 'preset-default',
-                params: {
-                  overrides: {
-                    removeViewBox: false,
-                  },
+        // @svgr/rollup은 svgrOptions 래퍼 없이 바로 옵션 전달
+        icon: true,
+        dimensions: true,
+        ref: true,
+        titleProp: true,
+        exportType: 'default',
+        jsxRuntime: 'automatic',
+        svgoConfig: {
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  removeViewBox: false,
                 },
               },
-            ],
-          },
-          jsxRuntime: 'automatic',
+            },
+          ],
         },
       }),
     );
