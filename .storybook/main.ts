@@ -1,7 +1,12 @@
-import { resolve } from 'path';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import type { StorybookConfig } from '@storybook/react-vite';
 import type { PluginOption } from 'vite';
 import svgr from 'vite-plugin-svgr';
+
+// ESM 환경에서 __dirname 대체
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
