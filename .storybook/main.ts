@@ -22,8 +22,9 @@ const config: StorybookConfig = {
         svgrOptions: {
           icon: true,
           dimensions: true,
-          typescript: true,
+          typescript: false,
           ref: true,
+          titleProp: true,
           svgoConfig: {
             plugins: [
               {
