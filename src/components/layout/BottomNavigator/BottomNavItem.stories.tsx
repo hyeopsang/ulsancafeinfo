@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router';
+import { createMemoryRouter, RouterProvider } from 'react-router';
 
 import BottomNavItem from './BottomNavItem';
 
@@ -12,33 +12,33 @@ export default meta;
 
 type Story = StoryObj<typeof BottomNavItem>;
 
+const createRouter = (initialPath: string) =>
+  createMemoryRouter(
+    [
+      {
+        path: '/',
+        element: (
+          <BottomNavItem
+            path='/'
+            label='홈'
+            icon={() => <div className='h-6 w-6 rounded bg-gray-300' />}
+          />
+        ),
+      },
+    ],
+    {
+      initialEntries: [initialPath],
+    },
+  );
+
 export const Default: Story = {
-  args: {
-    path: '/',
-    label: '홈',
-    icon: () => <div className='h-6 w-6 rounded bg-gray-300' />,
-  },
+  render: () => <RouterProvider router={createRouter('/')} />,
 };
 
 export const Active: Story = {
-  args: {
-    path: '/',
-    label: '홈',
-    icon: () => <div className='bg-main h-6 w-6 rounded' />,
-  },
+  render: () => <RouterProvider router={createRouter('/')} />,
 };
 
 export const Inactive: Story = {
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={['/other']}>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
-  args: {
-    path: '/',
-    label: '홈',
-    icon: () => <div className='h-6 w-6 rounded bg-gray-300' />,
-  },
+  render: () => <RouterProvider router={createRouter('/other')} />,
 };
