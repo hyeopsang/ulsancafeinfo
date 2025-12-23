@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
+import { resolve } from 'path';
 import type { StorybookConfig } from '@storybook/react-vite';
+import type { PluginOption } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
 const config: StorybookConfig = {
@@ -14,6 +14,13 @@ const config: StorybookConfig = {
   framework: '@storybook/react-vite',
 
   viteFinal: async (config) => {
+    // Path alias 설정 추가
+    config.resolve = config.resolve || {};
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': resolve(__dirname, '../src'),
+    };
+
     // SVGR 플러그인 추가
     config.plugins = config.plugins || [];
     config.plugins.push(
@@ -43,8 +50,13 @@ const config: StorybookConfig = {
     );
 
     // React Compiler 비활성화 (Storybook 호환성)
-    config.plugins = config.plugins?.map((plugin: any) => {
-      if (plugin?.name === 'vite:react-babel') {
+    config.plugins = config.plugins?.map((plugin: PluginOption) => {
+      if (
+        plugin &&
+        typeof plugin === 'object' &&
+        'name' in plugin &&
+        plugin.name === 'vite:react-babel'
+      ) {
         return {
           ...plugin,
           options: {
