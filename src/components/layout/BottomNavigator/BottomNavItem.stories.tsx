@@ -28,13 +28,6 @@ export const Default: Story = {
 };
 
 export const Active: Story = {
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={['/']}>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   args: {
     path: '/',
     label: '홈',

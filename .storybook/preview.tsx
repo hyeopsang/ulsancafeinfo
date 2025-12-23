@@ -1,5 +1,5 @@
-import { MemoryRouter } from 'react-router';
 import type { Preview } from '@storybook/react';
+import { MemoryRouter } from 'react-router';
 
 const preview: Preview = {
   decorators: [
