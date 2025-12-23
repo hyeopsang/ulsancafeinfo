@@ -2,7 +2,7 @@ import BottomNavItem from './BottomNavItem';
 
 import Home from '@/assets/home.svg?react';
 import Map from '@/assets/map.svg?react';
-import Event from '@/assets/event.svg?react';
+import Event from '@/assets/events.svg?react';
 import Profile from '@/assets/profile.svg?react';
 import type { ComponentType, SVGProps } from 'react';
 

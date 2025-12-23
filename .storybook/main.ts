@@ -19,20 +19,20 @@ const config: StorybookConfig = {
   framework: '@storybook/react-vite',
 
   viteFinal: async (config) => {
-    // Path alias 설정 추가
+    // alias
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': resolve(__dirname, '../src'),
     };
 
-    // SVGR 플러그인 추가 (@svgr/rollup 사용)
+    // 🔥 SVGR: ?react 만 처리
     config.plugins = config.plugins || [];
     config.plugins.push(
       svgr({
-        include: '**/*.svg',
+        include: '**/*.svg?react',
         exportType: 'default',
-        // 최소한의 옵션만 사용
+        svgo: true,
         svgoConfig: {
           plugins: [
             {
@@ -48,8 +48,8 @@ const config: StorybookConfig = {
       }),
     );
 
-    // React Compiler 비활성화 (Storybook 호환성)
-    config.plugins = config.plugins?.map((plugin: PluginOption) => {
+    // React Compiler 비활성화 (유지 👍)
+    config.plugins = config.plugins.map((plugin: PluginOption) => {
       if (
         plugin &&
         typeof plugin === 'object' &&

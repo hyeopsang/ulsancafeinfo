@@ -1,23 +1,13 @@
-import { RouterProvider, createMemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router';
 import type { Preview } from '@storybook/react';
 
 const preview: Preview = {
   decorators: [
-    (Story) => {
-      const router = createMemoryRouter(
-        [
-          {
-            path: '*',
-            element: <Story />,
-          },
-        ],
-        {
-          initialEntries: ['/'],
-        },
-      );
-
-      return <RouterProvider router={router} />;
-    },
+    (Story) => (
+      <MemoryRouter initialEntries={['/']}>
+        <Story />
+      </MemoryRouter>
+    ),
   ],
 };
 
